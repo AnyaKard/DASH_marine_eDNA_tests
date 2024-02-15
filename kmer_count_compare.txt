@@ -1,0 +1,210 @@
+# Decided to go with 150 bp kmers because it was taking too long to use kmers of smaller sizes and it wasn't giving any obviously better results
+
+# mainly used Jellyfish https://github.com/gmarcais/Jellyfish/tree/master
+# run on the Pawsey server
+# data: Great Barrier Reef
+
+# 1D and 6S data is empty not included in the sampling run
+# Using these not using the L002 of R2 samples so far:
+1S_S4_L001_R1_001.fastq.gz
+2D_S7_L001_R1_001.fastq.gz
+2S_S6_L001_R1_001.fastq.gz
+4D_2k_S1_L001_R1_001.fastq.gz
+5D_2k_S2_L001_R1_001.fastq.gz
+6D_2k_S3_L001_R1_001.fastq.gz
+
+# Saved under jellyfish_210414_1S
+conda activate jellyfish
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/1S_S4_L001_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o 210414_1S.bc 
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/1S_S4_L001_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc 210414_1S.bc -o 210414_1S_bc.jf /dev/fd/0
+jellyfish dump 210414_1S_bc.jf > 210414_1S_bc_dump.fa
+
+# Saved under jellyfish_210414_2D
+conda activate jellyfish 
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/2D_S7_L001_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o 210414_2D.bc /dev/fd/0
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/2D_S7_L001_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc 210414_2D.bc -o 210414_2D_bc.jf /dev/fd/0
+jellyfish dump 210414_2D_bc.jf > 210414_2D_bc_dump.fa
+
+# Saved under jellyfish_210414_2S
+conda activate jellyfish
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/2S_S6_L001_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o 210414_2S.bc /dev/fd/0
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/2S_S6_L001_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc 210414_2S.bc -o 210414_2S_bc.jf /dev/fd/0
+jellyfish dump 210414_2S_bc.jf > 210414_2S_bc_dump.fa
+
+# Saved under jellyfish_210414_4D
+conda activate jellyfish
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/4D_2k_S1_L001_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o 210414_4D.bc /dev/fd/0
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/4D_2k_S1_L001_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc 210414_4D.bc -o 210414_4D_bc.jf /dev/fd/0
+jellyfish dump 210414_4D_bc.jf > 210414_4D_bc_dump.fa
+
+# Saved under jellyfish_210414_5D
+conda activate jellyfish
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/5D_2k_S2_L001_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o 210414_5D.bc /dev/fd/0
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/5D_2k_S2_L001_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc 210414_5D.bc -o 210414_5D_bc.jf /dev/fd/0
+jellyfish dump 210414_5D_bc.jf > 210414_5D_bc_dump.fa
+
+# Saved under jellyfish_210414_6D
+conda activate jellyfish
+zcat /data/raw_data/OceanOmics/shotgun/ 210414_VH00259_16_AAAFCVMHV/6D_2k_S3_L001_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o 210414_6D_L5_R1.bc /dev/fd/0
+zcat /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/6D_2k_S3_L001_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc 210414_6D_L5_R1.bc -o 210414_6D_L5_R1_bc.jf /dev/fd/0
+jellyfish dump 210414_6D_L5_R1_bc.jf > 210414_6D_L5_R1_bc_dump.fa
+
+#######################################################################################################################################
+
+# Data: Rowley Shoals
+
+jellyfish bc -m 150 -s 100G -t 16 -o IM_L1_noribo_R1.bc ribodetector_outputs/IM_L1_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc IM_L1_noribo_R1.bc -o IM_L1_noribo_R1_bc.jf ribodetector_outputs/IM_L1_reads.nonrrna.1.fq
+pigz IM_L1_noribo_R1.bc
+jellyfish dump IM_L1_noribo_R1_bc.jf > IM_L1_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o IM_S2_noribo_R1.bc ribodetector_outputs/IM_S2_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc IM_S2_noribo_R1.bc -o IM_S2_noribo_R1_bc.jf ribodetector_outputs/IM_S2_reads.nonrrna.1.fq
+pigz IM_S2_noribo_R1.bc
+jellyfish dump IM_S2_noribo_R1_bc.jf > IM_S2_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o IM_S3_noribo_R1.bc ribodetector_outputs/IM_S3_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc IM_S3_noribo_R1.bc -o IM_S3_noribo_R1_bc.jf ribodetector_outputs/IM_S3_reads.nonrrna.1.fq
+pigz IM_S3_noribo_R1.bc
+jellyfish dump IM_S3_noribo_R1_bc.jf > IM_S3_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o IM_S4_noribo_R1.bc ribodetector_outputs/IM_S4_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc IM_S4_noribo_R1.bc -o IM_S4_noribo_R1_bc.jf ribodetector_outputs/IM_S4_reads.nonrrna.1.fq
+pigz IM_S4_noribo_R1.bc
+jellyfish dump IM_S4_noribo_R1_bc.jf > IM_S4_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o ME_L3_noribo_R1.bc ribodetector_outputs/ME_L3_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc ME_L3_noribo_R1.bc -o ME_L3_noribo_R1_bc.jf ribodetector_outputs/ME_L3_reads.nonrrna.1.fq
+pigz ME_L3_noribo_R1.bc
+jellyfish dump ME_L3_noribo_R1_bc.jf > ME_L3_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o ME_S1_noribo_R1.bc ribodetector_outputs/ME_S1_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc ME_S1_noribo_R1.bc -o ME_S1_noribo_R1_bc.jf ribodetector_outputs/ME_S1_reads.nonrrna.1.fq
+pigz ME_S1_noribo_R1.bc
+jellyfish dump ME_S1_noribo_R1_bc.jf > ME_S1_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o ME_S2_noribo_R1.bc ribodetector_outputs/ME_S2_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc ME_S2_noribo_R1.bc -o ME_S2_noribo_R1_bc.jf ribodetector_outputs/ME_S2_reads.nonrrna.1.fq
+pigz ME_S2_noribo_R1.bc
+jellyfish dump ME_S2_noribo_R1_bc.jf > ME_S2_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o ME_S3_noribo_R1.bc ribodetector_outputs/ME_S3_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc ME_S3_noribo_R1.bc -o ME_S3_noribo_R1_bc.jf ribodetector_outputs/ME_S3_reads.nonrrna.1.fq
+pigz ME_S3_noribo_R1.bc
+jellyfish dump ME_S3_noribo_R1_bc.jf > ME_S3_noribo_R1_bc_dump.fa
+
+jellyfish bc -m 150 -s 100G -t 16 -o ME_S4_noribo_R1.bc ribodetector_outputs/ME_S4_reads.nonrrna.1.fq
+jellyfish count -m 150 -s 3G -t 16 --bc ME_S4_noribo_R1.bc -o ME_S4_noribo_R1_bc.jf ribodetector_outputs/ME_S4_reads.nonrrna.1.fq
+pigz ME_S4_noribo_R1.bc
+jellyfish dump ME_S4_noribo_R1_bc.jf > ME_S4_noribo_R1_bc_dump.fa
+
+########################################################################################################################################################
+
+# Comparing kmer sizes and settings
+
+conda activate jellyfish
+
+# try without bloom counter step
+jellyfish count -m 41 -s 3G -t 16 -C -o IM_S2_41.jf rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq
+jellyfish dump IM_S2_41.jf > IM_S2_41_dump.fa
+
+jellyfish count -m 150 -s 3G -t 16 -C -o IM_S2_150-C.jf rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq
+jellyfish dump IM_S2_150-C.jf > IM_S2_150_dump-C.fa
+
+jellyfish count -m 150 -s 3G -t 16 -o IM_S2_150.jf rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq
+jellyfish dump IM_S2_150.jf > IM_S2_150_dump.fa
+
+# Results: 
+wc -l IM_S2_150_dump-C.fa
+1290258422 IM_S2_150_dump-C.fa
+wc -l IM_S2_150_dump.fa
+1290258422 IM_S2_150_dump.fa
+wc -l IM_S2_41_dump.fa
+51093316554 IM_S2_41_dump.fa
+# Original IM_S2 line counts with bc step beforehand:
+wc -l jellyfish_outputs/IM_S2_noribo_R1_bc_dump.fa
+183544194 jellyfish_outputs/IM_S2_noribo_R1_bc_dump.fa
+
+# -C doesn’t make a difference, shorter kmer size gives much more kmers (39.6 times more 0_0) and took a lot longer
+# 41 kmer size also took MUCH longer in DASHit 
+# bloom count step removes errors and kmers of 1 count and makes a much more manageable file size
+
+cat ../data2/IM_S3_41_bc_dump.fa | crispr_sites -r > dashit_guides_IM_S3_41.txt
+cat ../data2/IM_S3_150_bc_dump.fa | crispr_sites -r > dashit_guides_IM_S3_150.txt
+
+wc -l dashit_guides_IM_S3_41.txt
+133189145 dashit_guides_IM_S3_41.txt
+wc -l dashit_guides_IM_S3_150.txt
+76718883 dashit_guides_IM_S3_150.txt
+
+# 133189145 – 76718883 = 56470262 more guides produced using 41 kmer size than 150
+# Are there any that are present in 150 kmer produced guides but aren’t in 41 kmer produced guides?
+
+cut -b -20 dashit_guides_IM_S3_41.txt dashit_guides_IM_S3_150.txt | sort | uniq -c | sort -n | grep -v ' 2 ' | wc -l
+59103180
+
+# 76718883 – 59103180 = 17615703
+# 17615703 guides are not in the 41 kmer produced guides but are in the 150 produced guides
+
+# also tried expanding the kmer file so that the sequences were counted by DASHit as many times as they actually occured but this was making an enormous file obv 
+# Decided to go with 150 bp kmers because it was taking too long to use kmers of smaller sizes and it wasn't giving any more useful guides that was obvious.
+
+###############################################################################################################################################
+
+# Final kmer file production using Rowley Shoals data
+
+zcat rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o IM_L1.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc IM_L1.bc -o IM_L1_bc.jf /dev/fd/0
+pigz IM_L1.bc
+jellyfish dump IM_L1_bc.jf > IM_L1_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o IM_S2.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc IM_S2.bc -o IM_S2_bc.jf /dev/fd/0
+pigz IM_S2.bc
+jellyfish dump IM_S2_bc.jf > IM_S2_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_IM_S3_S1_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o IM_S3.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_IM_S3_S1_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc IM_S3.bc -o IM_S3_bc.jf /dev/fd/0
+pigz IM_S3.bc
+jellyfish dump IM_S3_bc.jf > IM_S3_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_IM_S4_S4_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o IM_S4.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_IM_S4_S4_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc IM_S4.bc -o IM_S4_bc.jf /dev/fd/0
+pigz IM_S4.bc
+jellyfish dump IM_S4_bc.jf > IM_S4_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_M2_L2_S3_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o M2_L2.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_M2_L2_S3_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc M2_L2.bc -o M2_L2_bc.jf /dev/fd/0
+pigz M2_L2.bc
+jellyfish dump M2_L2_bc.jf > M2_L2_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_ME_L1_S2_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o ME_L1.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_ME_L1_S2_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc ME_L1.bc -o ME_L1_bc.jf /dev/fd/0
+pigz ME_L1.bc
+jellyfish dump ME_L1_bc.jf > ME_L1_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_ME_L3_S4_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o ME_L3.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_ME_L3_S4_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc ME_L3.bc -o ME_L3_bc.jf /dev/fd/0
+pigz ME_L3.bc
+jellyfish dump ME_L3_bc.jf > ME_L3_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_ME_S1_S5_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o ME_S1.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_ME_S1_S5_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc ME_S1.bc -o ME_S1_bc.jf /dev/fd/0
+pigz ME_S1.bc
+jellyfish dump ME_S1_bc.jf > ME_S1_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_ME_S2_S6_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o ME_S2.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_ME_S2_S6_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc ME_S2.bc -o ME_S2_bc.jf /dev/fd/0
+pigz ME_S2.bc
+jellyfish dump ME_S2_bc.jf > ME_S2_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_ME_S3_S7_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o ME_S3.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_ME_S3_S7_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc ME_S3.bc -o ME_S3_bc.jf /dev/fd/0
+pigz ME_S3.bc
+jellyfish dump ME_S3_bc.jf > ME_S3_bc_dump.fa
+
+zcat rowley_Shoals_data/RS1_ME_S4_S8_R1_001.fastq.gz | jellyfish bc -m 150 -s 100G -t 16 -o ME_S4.bc /dev/fd/0
+zcat rowley_Shoals_data/RS1_ME_S4_S8_R1_001.fastq.gz | jellyfish count -m 150 -s 3G -t 16 --bc ME_S4.bc -o ME_S4_bc.jf /dev/fd/0
+pigz ME_S4.bc
+jellyfish dump ME_S4_bc.jf > ME_S4_bc_dump.fa
+
