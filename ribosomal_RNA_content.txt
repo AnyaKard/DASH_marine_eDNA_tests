@@ -1,0 +1,351 @@
+# Data: Rowley Shoals and Great Barrier Reef (/data/raw_data/OceanOmics/shotgun/210914_VH00640_8_AAAH3HYHV_RS_Monte/ and /data/raw_data/OceanOmics/shotgun/210907_VH00640_6_AAAH3K3HV and /data/raw_data/OceanOmics/shotgun/210414_VH00259_16_AAAFCVMHV/)
+
+# Tried CPU and GPU versions, GPU didn't work, CPU took ages, executed on Pawsey server
+
+# Analysed 9 samples from Rowley shoals
+# and 6 sample from GBR
+# only using forward (R1) reads for example:
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz \
+  -o ribodetector_outputs/1end_IM_L1_reads.nonrrna.1.fq
+
+# and using both forward and reverse reads for example:
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz Rowley_Shoals_data/RS1_IM_L1_S1_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_L1_reads.nonrrna.1.fq ribodetector_outputs/IM_L1_reads.nonrrna.2.fq
+
+# Amount of rRNA in the shotgun sequences was very little, at the very most it was 1.3%
+
+##############################################################################################################################################################################################
+
+# Rest of the analysis
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz Rowley_Shoals_data/RS1_IM_L1_S1_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_L1_reads.nonrrna.1.fq ribodetector_outputs/IM_L1_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq.gz Rowley_Shoals_data/RS1_IM_S2_S3_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_S2_reads.nonrrna.1.fq ribodetector_outputs/IM_S2_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_IM_S3_S1_R1_001.fastq.gz Rowley_Shoals_data/RS1_IM_S3_S1_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_S3_reads.nonrrna.1.fq ribodetector_outputs/IM_S3_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_IM_S4_S4_R1_001.fastq.gz Rowley_Shoals_data/RS1_IM_S4_S4_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_S4_reads.nonrrna.1.fq ribodetector_outputs/IM_S4_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_ME_L3_S4_R1_001.fastq.gz Rowley_Shoals_data/RS1_ME_L3_S4_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_L3_reads.nonrrna.1.fq ribodetector_outputs/ME_L3_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_ME_S1_S5_R1_001.fastq.gz Rowley_Shoals_data/RS1_ME_S1_S5_R2_001.fastq.gz \
+-e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S1_reads.nonrrna.1.fq ribodetector_outputs/ME_S1_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_ME_S2_S6_R1_001.fastq.gz Rowley_Shoals_data/RS1_ME_S2_S6_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S2_reads.nonrrna.1.fq ribodetector_outputs/ME_S2_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_ME_S3_S7_R1_001.fastq.gz Rowley_Shoals_data/RS1_ME_S3_S7_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S3_reads.nonrrna.1.fq ribodetector_outputs/ME_S3_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i Rowley_Shoals_data/RS1_ME_S4_S8_R1_001.fastq.gz Rowley_Shoals_data/RS1_ME_S4_S8_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S4_reads.nonrrna.1.fq ribodetector_outputs/ME_S4_reads.nonrrna.2.fq
+
+
+#### Amount of rRNA in the libraries
+# Unique read counts of kmers of RS1_IM_L1_S1_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz | wc -l 
+1480758916
+
+# Unique read counts of kmers of RS1_IM_L1_S1_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/IM_L1_reads.nonrrna.1.fq
+1478584020 ribodetector_outputs/IM_L1_reads.nonrrna.1.fq
+
+# 1480758916 – 1478584020 = 2174896 / 4 = 543724 reads are rRNA out of 370189729
+# 543724 / 370189729 *100 = 0.146877117% is rRNA
+
+# Unique read counts of kmers of RS1_IM_S2_S3_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq.gz | wc -l 
+2205425852
+
+# Unique read counts of kmers of RS1_IM_S2_S3_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/IM_S2_reads.nonrrna.1.fq
+2201027220 ribodetector_outputs/IM_S2_reads.nonrrna.1.fq
+
+# 2205425852 – 2201027220 = 4398632 / 4 = 1099658 reads are rRNA out of 550256805
+# 1099658 / 550256805 * 100 = 0.19984450714% is rRNA
+
+# Unique read counts of kmers of RS1_IM_S3_S1_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_IM_S3_S1_R1_001.fastq.gz | wc -l 
+533090988
+
+# Unique read counts of kmers of RS1_IM_S3_S1_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/IM_S3_reads.nonrrna.1.fq
+532147652 ribodetector_outputs/IM_S3_reads.nonrrna.1.fq
+
+# 533090988 – 532147652 = 943336 / 4 = 235834 reads are rRNA out of 133272747
+# 235834 / 133272747 * 100 = 0.17695590832% is rRNA
+
+# Unique read counts of kmers of RS1_IM_S4_S4_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_IM_S4_S4_R1_001.fastq.gz | wc -l 
+1698752196
+
+# Unique read counts of kmers of RS1_IM_S4_S4_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/IM_S4_reads.nonrrna.1.fq
+1695742844 ribodetector_outputs/IM_S4_reads.nonrrna.1.fq
+
+# 1698752196 – 1695742844 = 3009352 / 4 = 752338 reads are rRNA out of 424688049
+# 752338 / 424688049 * 100 = 0.17715073493% is rRNA
+
+# Unique read counts of kmers of RS1_ME_L3_S4_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_ME_L3_S4_R1_001.fastq.gz | wc -l 
+675527888
+
+# Unique read counts of kmers of RS1_ME_L3_S4_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/ME_L3_reads.nonrrna.1.fq
+673394648 ribodetector_outputs/ME_L3_reads.nonrrna.1.fq
+
+# 675527888 – 673394648 = 2133240 / 4 = 533310 reads are rRNA out of 168881972
+# 533310 / 168881972 * 100 = 0.3157885911% is rRNA
+
+# Unique read counts of kmers of RS1_ME_S1_S5_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_ME_S1_S5_R1_001.fastq.gz | wc -l 
+651502612
+
+# Unique read counts of kmers of RS1_ME_S1_S5_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/ME_S1_reads.nonrrna.1.fq
+650479224 ribodetector_outputs/ME_S1_reads.nonrrna.1.fq
+
+# 651502612 – 650479224 = 1023388 / 4 = 255847 reads are rRNA out of 162875653
+# 255847 / 162875653 * 100 = 0.15708118143% is rRNA
+
+# Unique read counts of kmers of RS1_ME_S2_S6_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_ME_S2_S6_R1_001.fastq.gz | wc -l 
+627523780
+
+# Unique read counts of kmers of RS1_ME_S2_S6_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/ME_S2_reads.nonrrna.1.fq
+626345432 ribodetector_outputs/ME_S2_reads.nonrrna.1.fq
+
+# 627523780 – 626345432 = 1178348 / 4 = 294587 reads are rRNA out of 156880945
+# 294587 / 156880945 * 100 = 0.18777742574% is rRNA
+
+# Unique read counts of kmers of RS1_ME_S3_S7_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_ME_S3_S7_R1_001.fastq.gz | wc -l 
+539495652
+
+# Unique read counts of kmers of RS1_ME_S3_S7_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/ME_S3_reads.nonrrna.1.fq
+538710936 ribodetector_outputs/ME_S3_reads.nonrrna.1.fq
+
+# 539495652 – 538710936 = 784716 / 4 = 196179 reads are rRNA out of 134873913
+# 196179 / 134873913 * 100 = 0.14545362823% is rRNA
+
+# Unique read counts of kmers of RS1_ME_S4_S1_R1_001.fastq.gz without rRNAs removed
+zcat Rowley_Shoals_data/RS1_ME_S4_S8_R1_001.fastq.gz | wc -l 
+669842340
+
+# Unique read counts of kmers of RS1_ME_S4_S1_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/ME_S4_reads.nonrrna.1.fq
+668151100 ribodetector_outputs/ME_S4_reads.nonrrna.1.fq
+
+# 669842340 – 668151100 =  / 4 = 422810 reads are rRNA out of 167460585
+# 422810 / 167460585 * 100 = 0.2524832933% is rRNA
+
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_L1_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_IM_S2_S3_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_S2_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_IM_S3_S1_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_S3_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_IM_S4_S4_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/IM_S4_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_ME_L3_S4_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_L3_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_ME_S1_S5_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S1_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_ME_S2_S6_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S2_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_ME_S3_S7_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S3_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i rowley_Shoals_data/RS1_ME_S4_S8_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/ME_S4_reads.nonrrna.1end.fq
+
+# GBR data analysis
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/1D_S5_L001_R1_001.fastq.gz gbr_data/1D_S5_L001_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_1D_reads.nonrrna.1.fq ribodetector_outputs/gbr_1D_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/1S_S4_L001_R1_001.fastq.gz gbr_data/1S_S4_L001_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_1S_reads.nonrrna.1.fq ribodetector_outputs/gbr_1S_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/2D_S7_L001_R1_001.fastq.gz gbr_data/2D_S7_L001_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_2D_reads.nonrrna.1.fq ribodetector_outputs/gbr_2D_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/2S_S6_L001_R1_001.fastq.gz gbr_data/2S_S6_L001_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_2S_reads.nonrrna.1.fq ribodetector_outputs/gbr_2S_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/4D_2k_S1_L001_R1_001.fastq.gz gbr_data/4D_2k_S1_L001_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_4D_reads.nonrrna.1.fq ribodetector_outputs/gbr_4D_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/5D_2k_S2_L001_R1_001.fastq.gz gbr_data/5D_2k_S2_L001_R2_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_5D_reads.nonrrna.1.fq ribodetector_outputs/gbr_5D_reads.nonrrna.2.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/1D_S5_L001_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_1D_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/1S_S4_L001_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_1S_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/2D_S7_L001_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_2D_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/2S_S6_L001_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_2S_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/4D_2k_S1_L001_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_4D_reads.nonrrna.1end.fq
+
+ribodetector_cpu -t 20 \
+  -l 100 \
+  -i gbr_data/5D_2k_S2_L001_R1_001.fastq.gz \
+  -e rrna \
+  --chunk_size 256 \
+  -o ribodetector_outputs/gbr_5D_reads.nonrrna.1end.fq
+
+# Amount of rRNA in the libraries
+# Unique read counts of kmers of 1S_S4_L001_R1_001.fastq.gz without rRNAs removed
+zcat gbr_data/1S_S4_L001_R1_001.fastq.gz | wc -l
+352,352,056
+
+# Unique read counts of kmers of 1S_S4_L001_R1_001.fastq.gz with rRNAs removed
+wc -l ribodetector_outputs/gbr_1S_reads.nonrrna.1end.fq
+347896704 ribodetector_outputs/gbr_1S_reads.nonrrna.1end.fq
+
+# 352352056 – 347896704 = 4455352 / 4 = 1113838 reads are rRNA out of 86974176
+# 1113838 / 86974176 *100 = 1.2806537% is rRNA
