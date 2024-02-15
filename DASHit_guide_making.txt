@@ -1,0 +1,37 @@
+# all data in 150kmer_guides folder
+
+cat ../data2/jellyfish_outputs/IM_S2_bc_dump.fa | crispr_sites -r > IM_S2_guides.txt
+cat ../data2/jellyfish_outputs/IM_S3_bc_dump.fa | crispr_sites -r > IM_S3_guides.txt
+cat ../data2/jellyfish_outputs/IM_S4_bc_dump.fa | crispr_sites -r > IM_S4_guides.txt
+cat ../data2/jellyfish_outputs/M2_L2_bc_dump.fa | crispr_sites -r > M2_L2_guides.txt
+cat ../data2/jellyfish_outputs/ME_L1_bc_dump.fa | crispr_sites -r > ME_L1_guides.txt
+cat ../data2/jellyfish_outputs/ME_L3_bc_dump.fa | crispr_sites -r > ME_L3_guides.txt
+cat ../data2/jellyfish_outputs/ME_S1_bc_dump.fa | crispr_sites -r > ME_S1_guides.txt
+cat ../data2/jellyfish_outputs/ME_S2_bc_dump.fa | crispr_sites -r > ME_S2_guides.txt
+cat ../data2/jellyfish_outputs/ME_S3_bc_dump.fa | crispr_sites -r > ME_S3_guides.txt
+cat ../data2/jellyfish_outputs/ME_S4_bc_dump.fa | crispr_sites -r > ME_S4_guides.txt
+
+join IM_S2_guides.txt IM_S3_guides.txt > IM_and_ME_whole_joined1.txt
+wc -l IM_and_ME_whole_joined1.txt
+join IM_and_ME_whole_joined1.txt IM_S4_guides.txt > IM_and_ME_whole_joined.txt
+wc -l IM_and_ME_whole_joined.txt
+join IM_and_ME_whole_joined.txt M2_L2_guides.txt > IM_and_ME_whole_joined1.txt
+wc -l IM_and_ME_whole_joined1.txt
+join IM_and_ME_whole_joined1.txt ME_L1_guides.txt > IM_and_ME_whole_joined.txt
+wc -l IM_and_ME_whole_joined.txt
+join IM_and_ME_whole_joined.txt ME_L3_guides.txt > IM_and_ME_whole_joined1.txt
+wc -l IM_and_ME_whole_joined1.txt
+join IM_and_ME_whole_joined1.txt ME_S1_guides.txt > IM_and_ME_whole_joined.txt
+wc -l IM_and_ME_whole_joined.txt
+join IM_and_ME_whole_joined.txt ME_S2_guides.txt > IM_and_ME_whole_joined1.txt
+wc -l IM_and_ME_whole_joined1.txt
+join IM_and_ME_whole_joined1.txt ME_S3_guides.txt > IM_and_ME_whole_joined.txt
+wc -l IM_and_ME_whole_joined.txt
+join IM_and_ME_whole_joined.txt ME_S4_guides.txt > IM_and_ME_whole_joined1.txt
+wc -l IM_and_ME_whole_joined1.txt
+
+optimize_guides IM_and_ME_whole_joined1.txt 15000 1 > final_guides_IM_and_M2_and_ME_top15000.csv
+
+# Converting guide file to fasta
+csv=$(echo 150kmer_guides/final_guides_IM_and_M2_and_ME_top15000.csv | cut -f 1 -d '.')
+awk -F , -v csv=$csv '{print ">"csv"_"$1"\n"$2}' $1 | tail -n+5 > $csv.fasta
