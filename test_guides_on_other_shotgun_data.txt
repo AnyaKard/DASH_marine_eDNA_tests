@@ -1,0 +1,104 @@
+# tested the 15,000 guides made on the other shotgun samples minderoo has
+# 210413 is the most different with 800 ish guides that are not mapping to the data. 
+# But otherwise there are only ~200 guides that wouldn’t also work for great barrier reef samples too. 
+# All analysis files are in other_data_test
+
+zcat GBR_data/1S_S4_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 1S_001_to_guide.txt
+zcat GBR_data/1S_S4_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 1S_L002_to_guide.txt
+zcat GBR_data/2D_S7_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 2D_L001_to_guide.txt
+zcat GBR_data/2D_S7_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 2D_L002_to_guide.txt
+zcat GBR_data/2S_S6_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 2S_L001_to_guide.txt
+zcat GBR_data/2S_S6_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 2S_L002_to_guide.txt
+zcat GBR_data/4D_2k_S1_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 4D_L002_to_guide.txt
+zcat GBR_data/4D_2k_S1_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 4D_L001_to_guide.txt
+zcat GBR_data/5D_2k_S2_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 5D_L001_to_guide.txt
+zcat GBR_data/5D_2k_S2_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 5D_L002_to_guide.txt
+zcat GBR_data/6D_2k_S3_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6D_L001_to_guide.txt
+zcat GBR_data/6D_2k_S3_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6D_L002_to_guide.txt
+zcat GBR_data/6S_S8_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6S_L001_to_guide.txt
+zcat GBR_data/6S_S8_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6S_L002_to_guide.txt
+
+cd gbr_210414_results/
+for i in ./ ;  do wc -l $i/*; done
+  29234 .//1S_L001_to_guide.txt
+  14597 .//1S_L002_to_guide.txt
+  14451 .//2D_L001_to_guide.txt
+  14433 .//2D_L002_to_guide.txt
+  14739 .//2S_L001_to_guide.txt
+  14704 .//2S_L002_to_guide.txt
+  14829 .//4D_L001_to_guide.txt
+  14817 .//4D_L002_to_guide.txt
+  14873 .//5D_L001_to_guide.txt
+  14856 .//5D_L002_to_guide.txt
+  14827 .//6D_L001_to_guide.txt
+  14840 .//6D_L002_to_guide.txt
+      0 .//6S_L001_to_guide.txt
+      0 .//6S_L002_to_guide.txt
+     13 .//gbr2_guides_compare.sh
+ 191213 total
+
+# Compare back to Rowley Shoals as a sanity check (these guides were made to target Rowley Shoals)
+
+zcat rowley_shoals_data/RS1_IM_L1_S1_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a IM_L1_to_guide.txt
+zcat rowley_shoals_data/RS1_IM_L3_S2_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a IM_L3_to_guide.txt
+zcat rowley_shoals_data/RS1_IM_S2_S3_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a IM_S2_to_guide.txt
+zcat rowley_shoals_data/RS1_IM_S3_S1_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a IM_S3_to_guide.txt
+zcat rowley_shoals_data/RS1_IM_S4_S4_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a IM_S4_to_guide.txt
+zcat rowley_shoals_data/RS1_M2_L2_S3_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a M2_L2_to_guide.txt
+zcat rowley_shoals_data/RS1_ME_L1_S2_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a ME_L1_to_guide.txt
+zcat rowley_shoals_data/RS1_ME_L3_S4_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a ME_L3_to_guide.txt
+zcat rowley_shoals_data/RS1_ME_S1_S5_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a ME_S1_to_guide.txt
+zcat rowley_shoals_data/RS1_ME_S2_S6_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a ME_S2_to_guide.txt
+zcat rowley_shoals_data/RS1_ME_S3_S7_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a ME_S3_to_guide.txt
+zcat rowley_shoals_data/RS1_ME_S4_S8_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a ME_S4_to_guide.txt
+
+cd rs_210907_and_210914_results/
+for i in ./ ;  do wc -l $i/*; done
+  14999 .//IM_L1_to_guide.txt
+      0 .//IM_L3_to_guide.txt
+  14999 .//IM_S2_to_guide.txt
+  14999 .//IM_S3_to_guide.txt
+  14999 .//IM_S4_to_guide.txt
+  14999 .//M2_L2_to_guide.txt
+  14999 .//ME_L1_to_guide.txt
+  14999 .//ME_L3_to_guide.txt
+  14999 .//ME_S1_to_guide.txt
+  14999 .//ME_S2_to_guide.txt
+  14998 .//ME_S3_to_guide.txt
+  14999 .//ME_S4_to_guide.txt
+     12 .//RS_guides_compare.sh
+ 165000 total
+
+# Other Great Barrier Reef data
+
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/4D_S1_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 4D_L001_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/4D_S1_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 4D_L002_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/4D_S1_L003_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 4D_L003_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/4D_S1_L004_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 4D_L004_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/5D_S2_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 5D_L001_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/5D_S2_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 5D_L002_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/5D_S2_L003_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 5D_L003_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/5D_S2_L004_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 5D_L004_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/6D_S3_L001_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6D_L001_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/6D_S3_L002_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6D_L002_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/6D_S3_L003_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6D_L003_to_guide.txt
+zcat /data/raw_data/OceanOmics/shotgun/210413_NS500470_0280_AH5L7WBGXJ/6D_S3_L004_R1_001.fastq.gz | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a 6D_L004_to_guide.txt
+
+cd gbr_210413_results/
+for i in ./ ;  do wc -l $i/*; done
+  12503 .//4D_L001_to_guide.txt
+  12466 .//4D_L002_to_guide.txt
+  12408 .//4D_L003_to_guide.txt
+  12477 .//4D_L004_to_guide.txt
+  11863 .//5D_L001_to_guide.txt
+  11865 .//5D_L002_to_guide.txt
+  11910 .//5D_L003_to_guide.txt
+  11829 .//5D_L004_to_guide.txt
+  13301 .//6D_L001_to_guide.txt
+  13287 .//6D_L002_to_guide.txt
+  13248 .//6D_L003_to_guide.txt
+  13250 .//6D_L004_to_guide.txt
+     14 .//GBR_guides_compare.sh
+ 150421 total
+
+210413 is the most different with 800 ish guides that are not mapping to the data. But otherwise there are only ~200 guides that wouldn’t also work for great barrier reef samples too. 

@@ -1,0 +1,28 @@
+# tested the guides on probe sequences designed to target ultra conserved elements of Actinopterigii (fish) 
+cat Actinopteri-v1-master-probe-list-DUPE-SCREENED200.fasta| grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a probes_to_guide.txt
+      6 AAAAAAAAAAAAAAAAAAAA
+      1 AACAACAACAACAACAACAA
+      8 ACACACACACACACACACAC
+      1 AGACAGACAGACAGACAGAC
+      2 AGAGAGAGAGAGAGAGAGAG
+      2 AGCAGCAGCAGCAGCAGCAG
+      4 CACACACACACACACACACA
+      1 CGAGGACGAGGACGAGGACG
+      5 CGAGGAGGAGGAGGAGGAGG
+      1 CTCTCTCTCTCTCTCTCTCT
+      2 CTGTCTGTCTGTCTGTCTGT
+      1 GAAGAAGAAGAAGAAGAAGA
+      4 GCAGCAGCAGCAGCAGCAGC
+      5 GCCGCCGCCGCCGCCGCCGC
+      1 GGAGGAGGAAGAGGAGGAGG
+      2 GGGGGGGGGGGGGGGGGGGG
+      2 GGTGGTGGTGGTGGTGGTGG
+      7 GTGTGTGTGTGTGTGTGTGT
+      1 TCTCTCTCTCTCTCTCTCTC
+      2 TGATGATGATGATGATGATG
+      1 TGCTGCTGCTGCTGCTGCTG
+      5 TGTGTGTGTGTGTGTGTGTG
+wc -l probes_to_guide.txt
+22 probes_to_guide.txt
+
+# only got repeats so specific guides will not be targeting fish and repeatitive DNA is not useful for fish ID anyway

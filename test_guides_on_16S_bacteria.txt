@@ -1,0 +1,88 @@
+# Comparing if 16S sequences are covered by guides
+# results in 16S_comparison
+
+cat Prochlorococcus_marinus_str._AS9601_16S.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Prochlorococcus_16S_to_guide.txt
+      1 ACTGGGGTGAAGTCGTAACA
+      1 AGAGCGCCTGCTTTGCAAGC
+      1 GTCAAGCTACAAAGGGCTCA
+cat Fictibacillus_nanhaiensis_16S.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Fictibacillus_nanhaiensis_16S_to_guide.txt
+      1 GCAAACAGGATTAGATACCC
+      1 TCCTACGGGAGGCAGCAGTA
+      1 TGAAACTCAAAGGAATTGAC
+cat Ruegeria_atlantica_16S.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Ruegeria_atlantica_16S_to_guide.txt
+      1 AGCTCGTGTCGTGAGATGTT
+      1 GCAAACAGGATTAGATACCC
+      1 GGGCTACACACGTGCTACAA
+      1 TAACTCCGTGCCAGCAGCCG
+      1 TCCTACGGGAGGCAGCAGTG
+      1 TTGACGGGGGCCCGCACAAG
+cat Uncultured_marine_bacterium_16S.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Uncultured_marine_bacterium_16S_to_guide.txt
+      1 AGCTCGTGTCGTGAGATGTT
+      1 TAACTTCGTGCCAGCAGCCG
+      1 TCCTACGGGAGGCAGCAGTG
+cat Uncultured_marine_bacterium_16S_ | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Uncultured_marine_bacterium_16S_2_to_guide.txt
+Uncultured_marine_bacterium_16S_2.fasta       Uncultured_marine_bacterium_16S_to_guide.txt
+cat Uncultured_marine_bacterium_16S_2.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Uncultured_marine_bacterium_16S_2_to_guide.txt
+      1 AGCTCGTGTCGTGAGATGTT
+      1 GCCACACTGGGACTGAGACA
+      1 GGGCTACACACGTGCTACAA
+      1 TTAGCTAGTTGGTGAGGTAA
+# AGCTCGTGTCGTGAGATGTT is present in most of them but not marinus and nanhaiensis
+
+############################################################################
+# Compared the guides to metabarcoding primers used to target bacteria 16S #
+############################################################################
+
+#These two guides match the universal primer developed by https://www.nature.com/articles/s41598-020-72577-4 https://doi.org/10.1038/s41598-020-72577-4 
+# CCTACGGGNBGCWSCAG
+>114
+TCCTACGGGAGGCAGCAGTG
+>2555
+TCCTACGGGAGGCAGCAGTA
+
+# Another paper with similar primers: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0105592#pone-0105592-t001 https://doi.org/10.1371/journal.pone.0105592
+# CCTACGGGNBGCASCAG
+>12941
+GCAAACAGGATTAGATACCC
+
+# AGAGTTTGATCCTGGCTCAG and ATTACCGCGGCTGCTGG and GTGCCAGCMGCCGCGGTAA https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0132783 https://doi.org/10.1371/journal.pone.0132783
+>806
+GGAGAGTTTGATCCTGGCTC
+>232
+TATTACCGCGGCTGCTGGCA
+>644
+TAACTTCGTGCCAGCAGCCG
+>14264
+TAACTCCGTGCCAGCAGCCG
+>558
+CGTTTACGGCGTGGACTACC
+>7165
+GTTGGTCAGACTGGACTACT
+>7554
+TGGGGGTTGTTATGGACTAC
+>12529
+TCGTTTACGGCCAGGACTAC
+
+# AGAGTTTGATCMTGGCTCAG https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2293150/ 10.1128/AEM.02272-07
+>806
+GGAGAGTTTGATCCTGGCTC
+>9838
+ACTAATCCAAGAGTTTGATC
+
+# AGAGTTTGATYMTGGCTCAG
+>806
+GGAGAGTTTGATCCTGGCTC
+>5222
+CTTAAAAAAGAGTTTGATGA
+>8222
+AAGAAGAGTTTGATGTTGTA
+>9451
+AGAGAGTTTGATATTGTAAA
+>9838
+ACTAATCCAAGAGTTTGATC
+>1092
+TGGCTCAGAACGTACGCTGG
+>3954
+TGGCTCAGAACGAACGCTGG
+>13101
+TGGCTCAGATTGAACGCTGG

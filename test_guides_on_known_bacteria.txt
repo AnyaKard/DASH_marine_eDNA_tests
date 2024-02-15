@@ -1,0 +1,42 @@
+# Prochlorococcus, Synechococcus, and Pelagibacter (SAR11) are the most common bacteria in the marine environment
+# All very diverse, especially Prochlorococcus
+
+# Used a kraken2 analysis to ID any bacteria in the Rowley Shoals data
+# Top species in each sample below:
+
+IM_L1	Prochlorococcus marinus str. AS9601, Synechococcus sp. TAK9802, no pelagibacter
+IM_S2	Prochlorococcus marinus str. AS9601, Synechococcus sp. TAK9802, no pelagibacter
+IM_S4	Prochlorococcus marinus str. AS9601, Synechococcus sp. TAK9802, no pelagibacter
+IM_S3	Prochlorococcus marinus str. AS9601, Synechococcus sp. BIOS-E4-1, Synechococcus sp. TAK9802 2nd highest, no pelagibacter, Prochlorococcus sp. MIT 0604?
+M2_L2	Prochlorococcus marinus str. AS9601, Synechococcus sp. TAK9802, Synechococcus sp. BIOS-E4-1 2nd highest, Synechococcus sp. BIOS-E4-1 3rd highest, no pelagibacter, Prochlorococcus sp. MIT 0604?
+ME_L1	Prochlorococcus marinus str. AS9601, Synechococcus sp. TAK9802, Synechococcus sp. M16.1 2nd highest, no pelagibacter, Prochlorococcus sp. MIT 0604?
+ME_L3	Synechococcus sp. TAK9802, Prochlorococcus marinus str. AS9601, no pelagibacter, Prochlorococcus sp. MIT 0604?
+ME_S1	Prochlorococcus marinus str. AS9601, Synechococcus sp. BIOS-E4-1, Synechococcus sp. MIT S9220 2nd highest, Synechococcus sp. TAK9802 3rd highest, no pelagibacter
+ME_S2	Prochlorococcus marinus str. AS9601, Synechococcus sp. BIOS-E4-1, Synechococcus sp. MIT S9220 2nd highest, Synechococcus sp. TAK9802 3rd highest, no pelagibacter
+ME_S3	Prochlorococcus marinus str. AS9601, Synechococcus sp. BIOS-E4-1, Synechococcus sp. TAK9802 2nd highest, no pelagibacter
+ME_S4	Prochlorococcus marinus str. AS9601, Synechococcus sp. TAK9802, no pelagibacter
+
+# Test guides on:
+cat Prochlorococcus_marinus_str._MIT_9215.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Prochlorococcus_marinus_str._MIT_9215_to_guide.txt
+cat Prochlorococcus_marinus_str._MIT_9312.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Prochlorococcus_marinus_str._MIT_9312_to_guide.txt
+cat Prochlorococcus_marinus_str._MIT_9301.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Prochlorococcus_marinus_str._MIT_9301_to_guide.txt
+cat Synechococcus_sp._M16.1.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Synechococcus_sp._M16.1_to_guide.txt
+cat Prochlorococcus_sp._MIT_0604.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Prochlorococcus_sp._MIT_0604_to_guide.txt
+cat Synechococcus_sp._BIOS-E4-1.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Synechococcus_sp._BIOS-E4-1_to_guide.txt
+cat Synechococcus_sp._TAK9802.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Synechococcus_sp._TAK9802_to_guide.txt
+cat Prochlorococcus_marinus_str._AS9601.fasta | grep -f IM_and_M2_and_ME_guides.fasta -o | sort | uniq -c | tee -a Prochlorococcus_marinus_str._AS9601_to_guide.txt
+
+wc -l *_to_guide.txt
+  703 bacteria_genome_test/Prochlorococcus_marinus_str._AS9601_to_guide.txt
+  546 bacteria_genome_test/Prochlorococcus_marinus_str._MIT_9215_to_guide.txt
+  686 bacteria_genome_test/Prochlorococcus_marinus_str._MIT_9301_to_guide.txt
+  550 bacteria_genome_test/Prochlorococcus_marinus_str._MIT_9312_to_guide.txt
+  694 bacteria_genome_test/Prochlorococcus_sp._MIT_0604_to_guide.txt
+   38 bacteria_genome_test/Synechococcus_sp._BIOS-E4-1_to_guide.txt
+   39 bacteria_genome_test/Synechococcus_sp._M16.1_to_guide.txt
+   45 bacteria_genome_test/Synechococcus_sp._TAK9802_to_guide.txt
+ 3301 total
+# data for this in bacteria_genome_test
+
+# Also tested on single cell sequencing which was contaminated with bacteria and got tons of hits!
+# data for this in single_cell_test
